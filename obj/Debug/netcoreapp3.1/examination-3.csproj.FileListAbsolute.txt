@@ -1,0 +1,13 @@
+H:\Skolan\1DV024 C#\examination-3\bin\Debug\netcoreapp3.1\examination-3.exe
+H:\Skolan\1DV024 C#\examination-3\bin\Debug\netcoreapp3.1\examination-3.deps.json
+H:\Skolan\1DV024 C#\examination-3\bin\Debug\netcoreapp3.1\examination-3.runtimeconfig.json
+H:\Skolan\1DV024 C#\examination-3\bin\Debug\netcoreapp3.1\examination-3.runtimeconfig.dev.json
+H:\Skolan\1DV024 C#\examination-3\bin\Debug\netcoreapp3.1\examination-3.dll
+H:\Skolan\1DV024 C#\examination-3\bin\Debug\netcoreapp3.1\examination-3.pdb
+H:\Skolan\1DV024 C#\examination-3\obj\Debug\netcoreapp3.1\examination-3.csprojAssemblyReference.cache
+H:\Skolan\1DV024 C#\examination-3\obj\Debug\netcoreapp3.1\examination-3.csproj.CoreCompileInputs.cache
+H:\Skolan\1DV024 C#\examination-3\obj\Debug\netcoreapp3.1\examination-3.AssemblyInfoInputs.cache
+H:\Skolan\1DV024 C#\examination-3\obj\Debug\netcoreapp3.1\examination-3.AssemblyInfo.cs
+H:\Skolan\1DV024 C#\examination-3\obj\Debug\netcoreapp3.1\examination-3.dll
+H:\Skolan\1DV024 C#\examination-3\obj\Debug\netcoreapp3.1\examination-3.pdb
+H:\Skolan\1DV024 C#\examination-3\obj\Debug\netcoreapp3.1\examination-3.genruntimeconfig.cache
