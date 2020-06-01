@@ -6,8 +6,7 @@ namespace examination_3
     class Deck
     {  
         // Properties
-        public List<Card> _deckOfCards = new List<Card>();
-
+        public Stack<Card> _cards = new Stack<Card>();
 
         // Methods
         public void CreateDeck()
@@ -18,11 +17,40 @@ namespace examination_3
             {
                 foreach (var rank in (Rank[]) Enum.GetValues(typeof(Rank)))
                 {
-                    _deckOfCards.Add(new Card(suit, rank));
+                    _cards.Push(new Card(suit, rank));
                 }
             }
+            ShuffleDeck();
         }
 
+        private Stack<Card> ShuffleDeck()
+        {
+            var shuffle = _cards.ToArray();
+            Random random = new Random();
+
+            for (int i = 0; i < shuffle.Length; i++)
+            {
+                int randomNumber = random.Next(0, shuffle.Length);
+
+                var tempvalue = shuffle[i];
+                shuffle[i] = shuffle[randomNumber];
+                shuffle[randomNumber] = tempvalue;
+            }
+
+            _cards.Clear();
+
+            foreach (var card in shuffle)
+            {
+                _cards.Push(card);   
+            }
+
+            return _cards;
+        }
+
+        public Card TakeCardFromDeck(Deck deckOfCards)
+        {
+            Card card = deckOfCards._cards.Pop();
+            return card;
+        }
     }
- 
 }

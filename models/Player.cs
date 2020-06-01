@@ -3,9 +3,11 @@ using System.Collections.Generic;
 
 namespace examination_3
 {
-    public class Player
+    class Player
     {
-        private Hand _Hand = new Hand();
+        private Hand _hand = new Hand();
+        private Stack<Card> _playerhand = new Stack<Card>();
+        private int _playerHandValue;
         protected String _name;
         protected int _stopvalue = new Random().Next(12,20);
 
@@ -23,12 +25,38 @@ namespace examination_3
                     }
                 }
         }
+
+        public dynamic PlayerHand 
+        {
+            get { return _playerhand; }
+        }
+        public int PlayerHandValue
+        {
+            get { return TotalValueOfCards(); }
+        }
+
+        public void GetCard(Card cardFromDeck) 
+        {
+            _playerhand.Push(cardFromDeck);
+        }
+
+
         public int StopValue {
             get{ return _stopvalue;}
             private set{
                 Random random = new Random();
                 _stopvalue = random.Next(8,19);
             }
+        }
+        public int TotalValueOfCards()
+        {
+            int sum = 0;
+            foreach (var card in _playerhand)
+            {
+               sum += card.Value;
+            }
+            Console.WriteLine(sum);
+            return sum;
         }
         public Player(String name)
         {

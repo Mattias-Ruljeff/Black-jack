@@ -12,7 +12,7 @@ namespace examination_3
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            GameTable newGame = new GameTable(10);
+            GameTable newGame = new GameTable(2);
 
             // Create a deck.
 
