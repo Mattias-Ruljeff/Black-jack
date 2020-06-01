@@ -5,9 +5,8 @@ namespace examination_3
 {
     public class Player
     {
-
+        private Hand _Hand = new Hand();
         protected String _name;
-        private List<Card> _hand = new List<Card>();
         protected int _stopvalue = new Random().Next(12,20);
 
         public String Name
@@ -24,10 +23,7 @@ namespace examination_3
                     }
                 }
         }
-        public dynamic Hand { get{ return _hand; }
-        }
-        
-        protected int StopValue {
+        public int StopValue {
             get{ return _stopvalue;}
             private set{
                 Random random = new Random();

@@ -43,7 +43,7 @@ namespace examination_3 {
             {
                 _playersPlaying.Add(new Player($"Player {i + 1}"));
             }
-            _playersPlaying.Add(new Dealer("Dealer"));
+            _playersPlaying.Add(new Dealer());
 
             _deck.CreateDeck();
 
@@ -57,7 +57,7 @@ namespace examination_3 {
         
         public void PrintResult(List<Player> playersPlaying) 
         {
-            playersPlaying.ForEach((player) => System.Console.WriteLine(player.Name));
+            playersPlaying.ForEach((player) => Console.WriteLine($"{player.Name} {player.StopValue}"));
         }
 
         
