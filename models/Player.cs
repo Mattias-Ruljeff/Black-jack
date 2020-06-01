@@ -1,34 +1,31 @@
 using System;
+using System.Collections.Generic;
 
 namespace examination_3
 {
-    class Player
+    public class Player
     {
 
         protected String _name;
-        protected String[] _hand;
-        protected int _stopvalue;
+        private List<Card> _hand = new List<Card>();
+        protected int _stopvalue = new Random().Next(12,20);
 
-        public String Name {
+        public String Name
+        {
             get{ return _name;}
             set{ 
-                if(value != null)
-                {
+                    if(value == null)
+                    {
+                        throw new ArgumentException("Enter a name");
+                    } 
+                    else
+                    {
                     _name = value;
-                }
-                    throw new ArgumentException("Enter a name");
+                    }
                 }
         }
-        public String[] Hand {
-            get{ return _hand;}
-            set{ 
-                if(value != null)
-                {
-                    _hand = value;
-                }
-                    throw new ArgumentException("Cannot set hand to null");
-                }
-            }
+        public dynamic Hand { get{ return _hand; }
+        }
         
         protected int StopValue {
             get{ return _stopvalue;}
@@ -39,7 +36,7 @@ namespace examination_3
         }
         public Player(String name)
         {
-
+            Name = name;
         }
     }
  
