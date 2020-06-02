@@ -3,12 +3,19 @@ using System.Collections.Generic;
 
 namespace examination_3
 {
+    /// <summary>
+    /// The deck of cars class.
+    /// </summary>
     class Deck
     {  
         // Properties
-        public Stack<Card> _cards = new Stack<Card>();
+        public Stack<Card> cards = new Stack<Card>();
 
         // Methods
+
+        /// <summary>
+        /// Creates a deck of cards.
+        /// </summary>
         public void CreateDeck()
         {
 
@@ -17,15 +24,20 @@ namespace examination_3
             {
                 foreach (var rank in (Rank[]) Enum.GetValues(typeof(Rank)))
                 {
-                    _cards.Push(new Card(suit, rank));
+                    cards.Push(new Card(suit, rank));
                 }
             }
-            ShuffleDeck();
+            ShuffleDeck(cards);
         }
 
-        private Stack<Card> ShuffleDeck()
+        /// <summary>
+        /// Shuffles the deck of cards.
+        /// </summary>
+        /// <param name="deck"> A deck of cards. </param>
+        /// <returns> The shuffleled deck of cards. </returns>
+        public Stack<Card> ShuffleDeck(Stack<Card> deck)
         {
-            var shuffle = _cards.ToArray();
+            var shuffle = deck.ToArray();
             Random random = new Random();
 
             for (int i = 0; i < shuffle.Length; i++)
@@ -37,19 +49,24 @@ namespace examination_3
                 shuffle[randomNumber] = tempvalue;
             }
 
-            _cards.Clear();
+            deck.Clear();
 
             foreach (var card in shuffle)
             {
-                _cards.Push(card);   
+                deck.Push(card);   
             }
 
-            return _cards;
+            return deck;
         }
 
+        /// <summary>
+        /// "Pops" a card from the deck.
+        /// </summary>
+        /// <param name="deckOfCards"> The deck of cards from the GameTable.cs</param>
+        /// <returns> A Card object. </returns>
         public Card TakeCardFromDeck(Deck deckOfCards)
         {
-            Card card = deckOfCards._cards.Pop();
+            Card card = deckOfCards.cards.Pop();
             return card;
         }
     }
