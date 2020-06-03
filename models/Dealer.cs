@@ -1,5 +1,3 @@
-using System;
-
 namespace examination_3
 {
     /// <summary>

@@ -2,24 +2,31 @@ using System;
 using System.Collections.Generic;
 
 namespace examination_3 {
-
+    /// <summary>
+    /// GameTable-class. 
+    /// </summary>
     class GameTable {
-        // Properties ---------------------------------------------------------
+        // Fields ---------------------------------------------------------
         private Stack<Card> _throwPile = new Stack<Card>();
         private Deck _deck = new Deck();
         private List<Player> _playersPlaying = new List<Player>();
         private Dealer dealer = new Dealer();
         private int _numberOfPlayers;
 
+        // Properties ------------------------------------------------------
+
+        /// <summary>
+        /// Sets the number of players. Minimun players is 1, maximum is 30.
+        /// </summary>
         public int NumberOfPlayers
         {
             get{return _numberOfPlayers;}
             set
             { 
-                if(value > 0) {
+                if(value > 0 && value < 30) {
                 _numberOfPlayers = value;
                 }
-                else if(value > 100)
+                else if(value > 30)
                 {
                     throw new ArgumentOutOfRangeException("Maximum number of players is 100");
                 }else 
@@ -29,17 +36,23 @@ namespace examination_3 {
             }
         }
 
-        // Constructor
+        // Constructor ------------------------------------------------------------
 
+        /// <summary>
+        /// The starting point of GameTable.cs.
+        /// </summary>
+        /// <param name="numberOfPlayers"> The number of players playing. </param>
         public GameTable(int numberOfPlayers)
         {
             NumberOfPlayers = numberOfPlayers;
             StartGame();
         }
 
-        // Methods ----------------------------------------------------
+        // Methods ----------------------------------------------------------------
 
-        // Adding the players and the dealer with one card each.
+        /// <summary>
+        /// Adding the players and the dealer to the game with one card each.
+        /// </summary>
         public void StartGame() 
         {
             _deck.CreateDeck();
@@ -56,108 +69,148 @@ namespace examination_3 {
             StartPlayRound();
         }
 
+        /// <summary>
+        /// Starts the game with every player against the dealer, start dealing to player.
+        /// If the player does´n get 21 or more, the dealer get cards.
+        /// </summary>
         private void StartPlayRound ()
         {
             foreach (var player in _playersPlaying)
             {
-                dealCards(player);
+                DealCardsToPlayer(player);
 
-                // Player gets more than 21 and looses.
+                // Player gets more than 21 and loose.
                 if (player.PlayerHandValue > 21) 
                 {
-                    PrintGameResultWithoutDealer(false, player, dealer);
+                    PrintGameRoundResultWithoutDealer(false, player, dealer);
+                    EmptyPlayerHand(player);
+
+                    continue;
                 }
 
                 // Player gets 21 and wins.
                 if(player.PlayerHandValue == 21)
                 {
-                    PrintGameResultWithoutDealer(true, player, dealer);
+                    PrintGameRoundResultWithoutDealer(true, player, dealer);
+                    EmptyPlayerHand(player);
+
+                    continue;
                 }
 
                 // Player gets 5 cards and wins.
                 if(player.PlayerHand.Count == 5)
                 {
-                    PrintGameResultWithoutDealer(true, player, dealer);
+                    PrintGameRoundResultWithoutDealer(true, player, dealer);
+                    EmptyPlayerHand(player);
+                    continue;
                 }
 
                 if (player.PlayerHandValue < 21) 
                 {
-                    dealCards(dealer);
+                    DealCardsToPlayer(dealer);
                     int playerScore = player.PlayerHandValue;
                     int dealerScore = dealer.PlayerHandValue;
                     if(dealerScore == 21)
                     {
-                        PrintGameResultWithDealer(false, player, dealer );
+                        PrintGameRoundResultWithDealer(false, player, dealer );
                     }
                     else if(dealerScore < 21)
                     {  
                         if(playerScore < dealerScore)
                         {
-                            PrintGameResultWithDealer(false, player, dealer);
+                            PrintGameRoundResultWithDealer(false, player, dealer);
                         }
                         if(playerScore == dealerScore)
                         {
-                            PrintGameResultWithDealer(false, player, dealer);
+                            PrintGameRoundResultWithDealer(false, player, dealer);
                         }
                         if(playerScore > dealerScore)
                         {
-                            PrintGameResultWithDealer(true, player, dealer );
+                            PrintGameRoundResultWithDealer(true, player, dealer );
                         }
 
                     } else
                     {
-                        PrintGameResultWithDealer(true, player, dealer);
+                        PrintGameRoundResultWithDealer(true, player, dealer);
                     }
                 }
                 dealer.PlayerHandValue = 0;
                 Console.WriteLine();
-                emptyPlayerHand(player);
-                emptyPlayerHand(dealer);
+                EmptyPlayerHand(player);
+                EmptyPlayerHand(dealer);
             }
 
         }
-        private void PrintGameResultWithoutDealer(bool ifPlayerWon, Player player, Player dealer)
+        /// <summary>
+        /// Prints the results of a round with a player, dealer does not get cards.
+        /// </summary>
+        /// <param name="ifPlayerWon"> Bool value, if the player won the round or not</param>
+        /// <param name="player"> Player Object. </param>
+        /// <param name="dealer"> Dealer Object. </param>
+        private void PrintGameRoundResultWithoutDealer(bool ifPlayerWon, Player player, Dealer dealer)
         {
             Console.Write($"{player.Name} cards: ");
-            PrintCardInConsole(player);
-            Console.Write(
-                player.PlayerHandValue <= 21 ?
-                $" sum: ({player.PlayerHandValue}) {player.StopValue}" :
-                $" sum: ({player.PlayerHandValue}) {player.StopValue}, BUSTED!");
+
+            PrintPlayerCardInConsole(player);
+
+            Console.Write(player.PlayerHandValue <= 21 ?
+                $" sum: ({player.PlayerHandValue})" :
+                $" sum: ({player.PlayerHandValue}), BUSTED!");
 
             Console.WriteLine();
             Console.WriteLine($"{dealer.Name} cards:  -");
             Console.WriteLine(ifPlayerWon == true ? $"{player.Name} won!" : $"{dealer.Name} won!");
+            Console.WriteLine();
 
         }
-        private void PrintGameResultWithDealer(bool ifPlayerWon, Player player, Player dealer)
+        /// <summary>
+        /// Prints the results of a round with a player and dealer.
+        /// </summary>
+        /// <param name="ifPlayerWon"> Bool value, if the player won the round or not</param>
+        /// <param name="player"> Player Object. </param>
+        /// <param name="dealer"> Dealer Object. </param>
+        private void PrintGameRoundResultWithDealer(bool ifPlayerWon, Player player, Dealer dealer)
         {
             Console.Write($"{player.Name} cards: ");
-            PrintCardInConsole(player);
-            Console.WriteLine(
-            player.PlayerHandValue <= 21 ? $" sum: ({player.PlayerHandValue}){player.StopValue}" : $" sum: ({player.PlayerHandValue}) {player.StopValue}, BUSTED!");
+
+            PrintPlayerCardInConsole(player);
+
+            Console.WriteLine(player.PlayerHandValue <= 21 ?
+            $" sum: ({player.PlayerHandValue})" :
+            $" sum: ({player.PlayerHandValue}), BUSTED!");
 
             Console.Write($"{dealer.Name} cards: ");
-            PrintCardInConsole(dealer);
-            Console.WriteLine(
-            dealer.PlayerHandValue <= 21 ? $" sum: ({dealer.PlayerHandValue}){dealer.StopValue}" : $" sum: ({dealer.PlayerHandValue}) {dealer.StopValue}, BUSTED!");
+
+            PrintPlayerCardInConsole(dealer);
+
+            Console.WriteLine(dealer.PlayerHandValue <= 21 ?
+            $" sum: ({dealer.PlayerHandValue})" :
+            $" sum: ({dealer.PlayerHandValue}), BUSTED!");
 
             Console.WriteLine(ifPlayerWon == true ? $"{player.Name} won!" : $"{dealer.Name} won!");
 
         }
-        private void PrintCardInConsole(Player player)
+        /// <summary>
+        /// Prints the players card in the console beside the name of the player.
+        /// </summary>
+        /// <param name="player"> Player/Dealer Object</param>
+        private void PrintPlayerCardInConsole(Player player)
         {
             foreach (var playerCard in player.PlayerHand)
                 {
                     Console.Write($"{playerCard} ");
                 }
         }
-
-        private void dealCards(Player player)
+        /// <summary>
+        /// Deals the player cards.
+        /// If the deck is empty, the _throwpile is emptied and moved to the deck.
+        /// The deck get shuffled.
+        /// </summary>
+        /// <param name="player"> A Player/Dealer Object</param>
+        private void DealCardsToPlayer(Player player)
         {
             Card card;
             do{
-                
                 if(_deck.cards.Count < 1)
                 {
                     foreach (var deckCard in _throwPile)
@@ -168,14 +221,15 @@ namespace examination_3 {
                     _deck.ShuffleDeck(_deck.cards);
                 }
                 card = _deck.TakeCardFromDeck(_deck);
-                Console.WriteLine($"{card} kortet som ges till {player.Name}");
                 player.GetCard(card);
-                
             }
             while(player.PlayerHandValue < player.StopValue); 
         }
-
-        private void emptyPlayerHand(Player player) 
+        /// <summary>
+        /// Removes all the cards from the players hand and are added to the _throwpile.
+        /// </summary>
+        /// <param name="player"></param>
+        private void EmptyPlayerHand(Player player) 
         {
             foreach (var playerCard in player.PlayerHand)
             {

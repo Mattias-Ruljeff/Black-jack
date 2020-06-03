@@ -80,14 +80,13 @@ namespace examination_3
         /// Calculate the total value of the cards in the players hand.
         /// </summary>
         /// <returns> The calculated value of all the cards in the players hand. </returns>
-        public int TotalValueOfCards()
+        public void TotalValueOfCards()
         {
             int sum = 0;
             foreach (var card in PlayerHand)
             {
                sum += card.Value;
             }
-            Console.WriteLine($"{sum} summa");
             if (sum > 21)
             {
                 PlayerHandValue = FindAceCardsAndChangeValue(sum);
@@ -96,8 +95,6 @@ namespace examination_3
             {
             PlayerHandValue = sum;
             }
-            Console.WriteLine($"{PlayerHandValue} handsumma");
-            return PlayerHandValue;
         }
 
         /// <summary>
