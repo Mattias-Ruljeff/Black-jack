@@ -9,7 +9,6 @@ namespace examination_3 {
         public Stack<Card> CardsOnHand
         {
             get{ return _cardsOnHand;}
-            set{ GetCard(value); }
         }
         // Methods -----------------------------------------------
         
@@ -17,10 +16,9 @@ namespace examination_3 {
         /// Gets a card from the deck of cards.
         /// </summary>
         /// <param name="card"> The deck of cards from GameTable.cs </param>
-        public void GetCard(Stack<Card> card) 
+        public void GetCard(Card card) 
         {
-            var poppedCard = card.Pop();
-            CardsOnHand.Push(poppedCard);
+            _cardsOnHand.Push(card);
         }
 
     }

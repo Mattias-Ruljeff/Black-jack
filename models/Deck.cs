@@ -8,7 +8,7 @@ namespace examination_3
     /// </summary>
     class Deck
     {  
-        // Properties
+        // Fields
         public Stack<Card> cards = new Stack<Card>();
 
         // Methods

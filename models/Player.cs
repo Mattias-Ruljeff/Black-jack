@@ -5,13 +5,13 @@ namespace examination_3
 {
     class Player
     {
-        // Attributes ---------------------------------------
+        // Fields ----------------------------------------------
         private Hand _hand = new Hand();
-        private Stack<Card> _playerhand = new Stack<Card>();
         private int _handValue;
         protected String _name;
         protected int _stopvalue = new Random().Next(12,20);
 
+        // Properties -------------------------------------------
         /// <summary>
         /// The name of the player.
         /// </summary>
@@ -34,7 +34,7 @@ namespace examination_3
         /// </summary>
         public dynamic PlayerHand 
         {
-            get { return _playerhand; }
+            get { return _hand.CardsOnHand; }
         }
         /// <summary>
         /// The sum of the players hand.
@@ -51,19 +51,10 @@ namespace examination_3
                     {
                         _handValue = value;
                     }
-                    }
+                }
         }
 
-        // Methods --------------------------------------------------------
-        /// <summary>
-        /// Adds the "Popped" card from the deck of cards to the players hand.
-        /// </summary>
-        /// <param name="cardFromDeck"> A card the deck of cards. From GameTable.cs </param>
-        public void GetCard(Card cardFromDeck) 
-        {
-            _playerhand.Push(cardFromDeck);
-            TotalValueOfCards();
-        }
+
 
         /// <summary>
         /// Generate a random number as the players stop-value.
@@ -76,6 +67,18 @@ namespace examination_3
                 _stopvalue = random.Next(8,19);
             }
         }
+
+        // Methods ------------------------------------------------------------------
+        /// <summary>
+        /// Adds the "Popped" card from the deck of cards to the players hand.
+        /// </summary>
+        /// <param name="cardFromDeck"> A card the deck of cards. From GameTable.cs </param>
+        public void GetCard(Card cardFromDeck) 
+        {
+            _hand.GetCard(cardFromDeck);
+            TotalValueOfCards();
+        }
+
         /// <summary>
         /// Calculate the total value of the cards in the players hand.
         /// </summary>
@@ -114,6 +117,8 @@ namespace examination_3
             }
             return sum;
         }
+
+        // Constructor --------------------------------------------------------------------
 
         /// <summary>
         /// Constructor for Player-class.
