@@ -26,11 +26,6 @@ namespace examination_3
                     cards.Push(new Card(suit, rank));
                 }
             }
-            foreach (var item in cards)
-            {
-                Console.WriteLine(item);
-            }
-
             ShuffleDeck(cards);
         }
 
@@ -41,19 +36,23 @@ namespace examination_3
         /// <returns> The shuffleled deck of cards. </returns>
         public Stack<Card> ShuffleDeck(Stack<Card> deck)
         {
-            var shuffle = deck.ToArray();
+            var deckToShuffle = deck.ToArray();
             Random random = new Random();
 
-            for (int i = 0; i < shuffle.Length; i++)
+            for (int i = 0; i < deckToShuffle.Length; i++)
             {
-                int randomNumber = random.Next(0, shuffle.Length);
+                int randomNumber = random.Next(0, deckToShuffle.Length);
 
-                var tempvalue = shuffle[i];
-                shuffle[i] = shuffle[randomNumber];
-                shuffle[randomNumber] = tempvalue;
+                Card tempvalue = deckToShuffle[i];
+                deckToShuffle[i] = deckToShuffle[randomNumber];
+                deckToShuffle[randomNumber] = tempvalue;
             }
-
             deck.Clear();
+
+            foreach (var item in deckToShuffle)
+            {
+                deck.Push(item);
+            }
             return deck;
         }
 
