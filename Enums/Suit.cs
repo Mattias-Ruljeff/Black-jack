@@ -3,7 +3,8 @@ namespace examination_3
     /// <summary>
     /// The Suits for the Card-class.
     /// </summary>
-    enum Suit {
+    enum Suit 
+    {
         Spades = '♠',
         Hearts = '♥',
         Diamonds = '♦',

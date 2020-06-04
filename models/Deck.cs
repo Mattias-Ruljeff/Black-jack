@@ -20,13 +20,17 @@ namespace examination_3
         {
 
             foreach (var suit in (Suit[]) Enum.GetValues(typeof(Suit)))
-
             {
                 foreach (var rank in (Rank[]) Enum.GetValues(typeof(Rank)))
                 {
                     cards.Push(new Card(suit, rank));
                 }
             }
+            foreach (var item in cards)
+            {
+                Console.WriteLine(item);
+            }
+
             ShuffleDeck(cards);
         }
 
@@ -50,12 +54,6 @@ namespace examination_3
             }
 
             deck.Clear();
-
-            foreach (var card in shuffle)
-            {
-                deck.Push(card);   
-            }
-
             return deck;
         }
 
