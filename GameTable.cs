@@ -116,11 +116,7 @@ namespace examination_3 {
                     }
                     else if(dealerScore < 21)
                     {  
-                        if(playerScore < dealerScore)
-                        {
-                            PrintGameRoundResultWithDealer(false, player, dealer);
-                        }
-                        if(playerScore == dealerScore)
+                        if(playerScore <= dealerScore)
                         {
                             PrintGameRoundResultWithDealer(false, player, dealer);
                         }
