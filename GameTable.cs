@@ -28,7 +28,7 @@ namespace examination_3 {
                 }
                 else if(value > 30)
                 {
-                    throw new ArgumentOutOfRangeException("Maximum number of players is 100");
+                    throw new ArgumentOutOfRangeException("Maximum number of players is 30");
                 }else 
                 {
                 throw new ArgumentOutOfRangeException("Number must be greater than 0");
@@ -58,12 +58,12 @@ namespace examination_3 {
             _deck.CreateDeck();
             for (int i = 0; i < _numberOfPlayers; i++)
             {
-                var newPlayer = new Player($"Player {i + 1}");
-                var card = _deck.cards.Pop();
+                Player newPlayer = new Player($"Player {i + 1}");
+                Card card = _deck.cards.Pop();
                 newPlayer.GetCard(card);
                 _playersPlaying.Add(newPlayer);
             }
-            var dealerCard = _deck.cards.Pop();
+            Card dealerCard = _deck.cards.Pop();
             dealer.GetCard(dealerCard);
 
             StartPlayRound();
@@ -214,9 +214,9 @@ namespace examination_3 {
                         _deck.cards.Push(deckCard);
                     }
                     _throwPile.Clear();
-                    _deck.ShuffleDeck(_deck.cards);
+                    _deck.Shuffle(_deck.cards);
                 }
-                card = _deck.TakeCardFromDeck(_deck);
+                card = _deck.TakeCard(_deck);
                 player.GetCard(card);
             }
             while(player.PlayerHandValue < player.StopValue); 

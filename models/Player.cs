@@ -32,7 +32,7 @@ namespace examination_3
         /// <summary>
         /// The cards in the players hand.
         /// </summary>
-        public dynamic PlayerHand 
+        public Stack<Card> PlayerHand 
         {
             get { return _hand.CardsOnHand; }
         }
@@ -62,10 +62,6 @@ namespace examination_3
         /// <value> Random int between 8 and 18. </value>
         public int StopValue {
             get{ return _stopvalue;}
-            private set{
-                Random random = new Random();
-                _stopvalue = random.Next(8,19);
-            }
         }
 
         // Methods ------------------------------------------------------------------
